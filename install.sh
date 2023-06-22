@@ -2,14 +2,15 @@
 mkdir /etc/prometheus
 mkdir /var/lib/prometheus
 mkdir /var/log/prometheus
-mv ./prometheus-2.38.0.linux-amd64/consoles /etc/prometheus
-mv ./prometheus-2.38.0.linux-amd64/console_libraries /etc/prometheus
-addgroup --system prometheus
-adduser --shell /sbin/nologin --system --group prometheus prometheus
+#addgroup --system prometheus
+adduser --shell /sbin/nologin --system --ingroup prometheus prometheus
 curl -LO https://github.com/prometheus/prometheus/releases/download/v2.38.0/prometheus-2.38.0.linux-amd64.tar.gz
 tar -xvf prometheus-2.38.0.linux-amd64.tar.gz
 mv ./prometheus-2.38.0.linux-amd64/prometheus /usr/local/bin
 mv ./prometheus-2.38.0.linux-amd64/promtool /usr/local/bin
+mv ./prometheus-2.38.0.linux-amd64/consoles /etc/prometheus
+mv ./prometheus-2.38.0.linux-amd64/console_libraries /etc/prometheus
+
 cat <<EOF >> /etc/prometheus/prometheus.yml
 global:
   scrape_interval: 15s # intervalo da coleta
