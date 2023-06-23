@@ -13,8 +13,8 @@ mv ./prometheus-2.38.0.linux-amd64/console_libraries /etc/prometheus
 
 cat <<EOF >> /etc/prometheus/prometheus.yml
 global:
-  scrape_interval: 15s # intervalo da coleta
-  evaluation_interval: 15s # alertas
+  scrape_interval: 15s 
+  evaluation_interval: 15s 
 
 rule_files:
 scrape_configs:
