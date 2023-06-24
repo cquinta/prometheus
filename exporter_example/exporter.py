@@ -9,7 +9,7 @@ def pega_numero_astronautas():
         """
         Pegar o número de astronautas que estão no espaço!
         """
-        repsonse = requests.get(url_numero_pessoas)
+        response = requests.get(url_numero_pessoas)
         data = response.json()
         print(data)
         return data['number']
