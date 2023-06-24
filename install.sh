@@ -21,6 +21,9 @@ scrape_configs:
   - job_name: "prometheus"
     static_configs: 
       - targets: ["localhost:9090"]
+  - job_name: "Meu primeiro Exporter"
+    static_configs:
+      - targets: ["localhost:8899"]
 EOF
 cat <<EOF >> /etc/systemd/system/prometheus.service
 [Unit]
@@ -56,7 +59,7 @@ systemctl daemon-reload
 systemctl enable prometheus.service
 systemctl start prometheus
 apt-get update -y
-apt-get install -y docker
+snap install docker
 apt-get install -y python3-pip
 pip install prometheus-client
 snap install jq
