@@ -11,14 +11,14 @@ def pega_numero_astronautas():
         """
         response = requests.get(url_numero_pessoas)
         data = response.json()
-        print(data)
+        print(data['number'])
         return data['number']
         
     
     except Exception as e:
         print("Tivemos problemas para acessar a URL")
         raise e
-def atualiza_metricas()
+def atualiza_metricas():
     try:
         """
         Atualiza as metricas com o número de astronautas no espaço
@@ -52,7 +52,7 @@ def main():
     except Exception as e:
         print("Tivemos problemas na inicialização do Exporter")
         exit(1)
-if _name_ == '__main__':
+if __name__ == '__main__':
     main()
     exit(0)
 
