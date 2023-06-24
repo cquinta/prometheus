@@ -14,7 +14,7 @@ module "produto" {
     source = "git::https://github.com/cquinta/terraform-module-template.git"
     name = "produto"
     enable_sg = true
-    ingress_ports = [80,443,9090]
+    ingress_ports = [80,443,8899,9090]
 }
 
 output "ip_address" {

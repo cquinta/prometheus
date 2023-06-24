@@ -56,6 +56,7 @@ systemctl daemon-reload
 systemctl enable prometheus.service
 systemctl start prometheus
 apt-get update -y
+apt-get install -y docker
 apt-get install -y python3-pip
 pip install prometheus-client
 snap install jq

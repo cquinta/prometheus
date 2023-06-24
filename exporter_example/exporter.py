@@ -38,7 +38,7 @@ def inicia_exporter():
         start_http_server(8899)
         return True
     except Exception as e: 
-        print("Tivemos problemas iniciar o http_server")
+        print("Tivemos problemas iniciar o http_server ")
         raise e
 def main():
     try:
@@ -49,7 +49,7 @@ def main():
         print("HTTP Server iniciado")
         atualiza_metricas()
     except Exception as e:
-        print("Tivemos problemas na inicialização do Exporter")
+        print('\nExporter Falhou e Foi Finalizado! \n\n======> %s\n' % e)
         exit(1)
 if __name__ == '__main__':
     main()
