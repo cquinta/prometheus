@@ -11,7 +11,6 @@ def pega_numero_astronautas():
         """
         response = requests.get(url_numero_pessoas)
         data = response.json()
-        print(data['number'])
         return data['number']
         
     
@@ -27,7 +26,7 @@ def atualiza_metricas():
         while True:
             numero_pessoas.set(pega_numero_astronautas())
             time.sleep(10)
-        print("O número de Astronautas no espaço nesse momento é: %s" %pega_numero_astronautas() )
+            print("O número de Astronautas no espaço nesse momento é: %s" %pega_numero_astronautas() )
     except Exception as e:
         print("Tivemos problemas em atualizar a métrica!")
         raise e
