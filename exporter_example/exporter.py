@@ -18,4 +18,47 @@ def pega_numero_astronautas():
     except Exception as e:
         print("Tivemos problemas para acessar a URL")
         raise e
-pega_numero_astronautas()
+def atualiza_metricas()
+    try:
+        """
+        Atualiza as metricas com o número de astronautas no espaço
+        """
+        numero_pessoas = Gauge('numero_de_astronautas', 'Número de astronautas no espaço')
+        while True:
+            numero_pessoas.set(pega_numero_astronautas())
+            time.sleep(10)
+        print("O número de Astronautas no espaço nesse momento é: %s" %pega_numero_astronautas() )
+    except Exception as e:
+        print("Tivemos problemas em atualizar a métrica!")
+        raise e
+def inicia_exporter(): 
+    try:
+        """
+        Iniciar o http server
+        """
+        start_http_server(8899)
+        return True
+    except Exception as e: 
+        print("Tivemos problemas iniciar o http_server")
+        raise e
+def main():
+    try:
+        """
+        Função principal
+        """
+        inicia_exporter()
+        print("HTTP Server iniciado")
+        atualiza_metricas()
+    except Exception as e:
+        print("Tivemos problemas na inicialização do Exporter")
+        exit(1)
+if _name_ == '__main__':
+    main()
+    exit(0)
+
+
+
+
+
+
+    
