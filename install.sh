@@ -24,6 +24,9 @@ scrape_configs:
   - job_name: "Meu primeiro Exporter"
     static_configs:
       - targets: ["localhost:8899"]
+  - job_name: "Meu segundo Exporter"
+    static_configs:
+      - targets: ["localhost:7788"]
 EOF
 cat <<EOF >> /etc/systemd/system/prometheus.service
 [Unit]
@@ -63,4 +66,12 @@ snap install docker
 apt-get install -y python3-pip
 pip install prometheus-client
 snap install jq
+cd exporter_example
+cd exporter_example_python
+docker build -t primeiro-exporter:0.1 .
+cd ..
+cd exporter_example_go
+docker build -t segundo-exporter:0.1 .
+docker run -d -p 8899:8899 --name primeiro-exporter primeiro-exporter:0.1
+docker run -d -p 7788:7788 --name segundo-exporter segundo-exporter:0.1
 
