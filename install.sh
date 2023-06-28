@@ -79,7 +79,7 @@ docker run -d -p 8899:8899 --name primeiro-exporter primeiro-exporter:0.1
 docker run -d -p 7788:7788 --name segundo-exporter segundo-exporter:0.1
 wget https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
 tar -xvf node_exporter-1.6.0.linux-amd64.tar.gz
-mv node_exporter-1.6.0.linux-amd64/node_exporter /usr/loca/bin
+mv node_exporter-1.6.0.linux-amd64/node_exporter /usr/local/bin
 addgroup node_exporter
 adduser --shell /sbin/nologin --system --ingroup node_exporter node_exporter
 cat <<EOF >> /etc/systemd/system/node_exporter.service
