@@ -27,6 +27,9 @@ scrape_configs:
   - job_name: "Meu segundo Exporter"
     static_configs:
       - targets: ["localhost:7788"]
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["localhost:9100"]
 EOF
 cat <<EOF >> /etc/systemd/system/prometheus.service
 [Unit]
@@ -74,4 +77,28 @@ cd exporter_example_go
 docker build -t segundo-exporter:0.1 .
 docker run -d -p 8899:8899 --name primeiro-exporter primeiro-exporter:0.1
 docker run -d -p 7788:7788 --name segundo-exporter segundo-exporter:0.1
+wget https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
+tar -xvf node_exporter-1.6.0.linux-amd64.tar.gz
+mv node_exporter-1.6.0.linux-amd64/node_exporter /usr/loca/bin
+addgroup node_exporter
+adduser --shell /sbin/nologin --system --ingroup node_exporter node_exporter
+cat <<EOF >> /etc/systemd/system/node_exporter.service
+[Unit]
+Description=Node_Exporter
+Wants=network-online.target
+After=network-online.target
 
+[Service]
+Type=simple
+User=node_exporter
+Group=node_exporter
+ExecReload=/bin/kill -HUP \$MAINPID
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl enable node_exporter.service
+systemctl start node_exporter
+systemctl restart prometheus
