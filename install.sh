@@ -79,9 +79,16 @@ docker run -d -p 8899:8899 --name primeiro-exporter primeiro-exporter:0.1
 docker run -d -p 7788:7788 --name segundo-exporter segundo-exporter:0.1
 wget https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
 tar -xvf node_exporter-1.6.0.linux-amd64.tar.gz
+mkdir /etc/node_exporter
 mv node_exporter-1.6.0.linux-amd64/node_exporter /usr/local/bin
 addgroup node_exporter
 adduser --shell /sbin/nologin --system --ingroup node_exporter node_exporter
+
+cat <<EOF >> /etc/node_exporter/node_exporter_options
+OPTIONS="--collector.systemd"
+EOF
+
+chown -R node_exporter:node_exporter /etc/node_exporter
 cat <<EOF >> /etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node_Exporter
@@ -93,7 +100,8 @@ Type=simple
 User=node_exporter
 Group=node_exporter
 ExecReload=/bin/kill -HUP \$MAINPID
-ExecStart=/usr/local/bin/node_exporter
+EnvironmentFile=/etc/node_exporter/node_exporter_options
+ExecStart=/usr/local/bin/node_exporter $OPTIONS
 
 [Install]
 WantedBy=multi-user.target
