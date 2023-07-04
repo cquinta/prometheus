@@ -44,7 +44,7 @@ groups:
         title: 'A máquina {{ $labels.instance}} está fora do ar'
         description: 'Urgente, precisamos voltar a máquina {{ $labels.instance }} está fora !'
         
-      labels:    
+      labels: LoadAverage
         severity: 'critical'
     - alert: 
       expr: node_load1 > 1.0
