@@ -17,6 +17,7 @@ global:
   evaluation_interval: 15s 
 
 rule_files:
+  - alertas.yml
 scrape_configs:
   - job_name: "prometheus"
     static_configs: 
@@ -31,6 +32,31 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9100"]
 EOF
+
+cat <<EOF >> /etc/prometheus/alertas.yml
+groups: 
+  - name: Meus primeiros alertas
+    rules: 
+    - alert: InstanceDown
+      expr: up == 0
+      for: 1m
+      annotations:
+        title: 'A máquina {{ $labels.instance}} está fora do ar'
+        description: 'Urgente, precisamos voltar a máquina {{ $labels.instance }} está fora !'
+        
+      labels:    
+        severity: 'critical'
+    - alert: 
+      expr: node_load1 > 1.0
+      for: 1m
+      annotations: 
+        tittle: ' A {{ $labels.instance }} está com o load_average alto'
+        description: ' Faça alguma coisa Mutly '
+        summary: ' {{ $labels.instance }} está com o load alto'
+        value: '{{ $value }}'
+  
+EOF
+
 cat <<EOF >> /etc/systemd/system/prometheus.service
 [Unit]
 Description=Prometheus
@@ -110,3 +136,5 @@ systemctl daemon-reload
 systemctl enable node_exporter.service
 systemctl start node_exporter
 systemctl restart prometheus
+
+# Configuração para alertas
