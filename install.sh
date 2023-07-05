@@ -55,13 +55,13 @@ groups:
         value: '{{ $value }}'
     - alert: DiskUsage
       expr: (node_filesystem_size_bytes - node_filesystem_free_bytes ) * 100 / node_filesystem_size_bytes > 70.0
-        for: 1m
-        labels:
-          instance: '{{ $labels.instance }}:{{ $labels.mountpoint }}'
-        annotations:
-          value: '{{ humanize $value }}'
+      for: 1m
+      labels:
+        instance: '{{ $labels.instance }}:{{ $labels.mountpoint }}'
+      annotations:
+        value: '{{ humanize $value }}'
   
-EOF
+EOFq
 
 cat <<EOF >> /etc/systemd/system/prometheus.service
 [Unit]
