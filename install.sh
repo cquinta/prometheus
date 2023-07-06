@@ -71,10 +71,10 @@ systemctl restart prometheus
 wget https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz
 tar xvzf alertmanager*
 mv ./alertmanager-0.25.0.linux-amd64/alertmanager /usr/local/bin
-mv ./amtool /usr/local/bin
+mv ./alertmanager-0.25.0.linux-amd64/amtool /usr/local/bin
 cp ./config/alertmanager.yml /etc/alertmanager
 cp ./config/alertmanager.service /etc/systemd/system/alertmanager.service
 systemctl daemon-reload
 systemctl enable alertmanager.service
 systemctl start alertmanager
-# Configuração para alertas
+
