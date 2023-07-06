@@ -1,0 +1,26 @@
+groups:
+  - name: Meus primeiros alertas
+    rules:
+    - alert: InstanceDown
+      expr: up == 0
+      for: 1m
+      annotations:
+        title: 'A máquina {{ $labels.instance}} está fora do ar'
+        description: 'Urgente, precisamos voltar a máquina {{ $labels.instance }} está fora !'
+      labels:
+        severity: 'critical'
+    - alert: LoadAverage
+      expr: node_load1 > 0.5
+      for: 1m
+      annotations:
+        tittle: ' A {{ $labels.instance }} está com o load_average alto'
+        description: ' Faça alguma coisa Mutly '
+        summary: ' {{ $labels.instance }} está com o load alto'
+        value: '{{ $value }}'
+    - alert: DiskUsage
+      expr: (node_filesystem_size_bytes - node_filesystem_free_bytes ) * 100 / node_filesystem_size_bytes > 70.0
+      for: 1m
+      labels:
+        instance: '{{ $labels.instance }}:{{ $labels.mountpoint }}'
+      annotations:
+        value: '{{ humanize $value  }}'
