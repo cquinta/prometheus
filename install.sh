@@ -143,4 +143,42 @@ systemctl enable node_exporter.service
 systemctl start node_exporter
 systemctl restart prometheus
 
+wget https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz
+tar xvzf alertmanager*
+mv alertmanager /usr/local/bin
+mv amtool /usr/local/bin
+mkdir /etc/alertmanager
+mv alertmanager.yml /etc/alertmanager
+mkdir /etc/alertmanager/templates
+mkdir /var/lib/alertmanager
+addgroup alertmanager
+adduser --shell /sbin/nologin --system --ingroup alertmanager alertmanager
+chown -R alertmanager:alertmanager /etc/alertmanager
+chown -R alertmanager:alertmanager /var/lib/alertmanager
+
+cat <<EOF >> /etc/systemd/system/alertmanager.service
+[Unit]
+Description=Alert Manager Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=alertmanager
+Group=alertmanager
+ExecStart=/usr/local/bin/alertmanager \
+          --config.file=/etc/alertmanager/alertmanager.yml \
+          --web.route-prefix=/
+
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable alertmanager.service
+systemctl start alertmanager
+
+
+
 # Configuração para alertas
