@@ -72,8 +72,8 @@ wget https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertm
 tar xvzf alertmanager*
 mv alertmanager /usr/local/bin
 mv amtool /usr/local/bin
-mv alertmanager.yml /etc/alertmanager
-cp ./infra/alertmanager/alertmanager.service /etc/systemd/system/alertmanager.service
+cp ./config/alertmanager.yml /etc/alertmanager
+cp ./config/alertmanager.service /etc/systemd/system/alertmanager.service
 systemctl daemon-reload
 systemctl enable alertmanager.service
 systemctl start alertmanager
