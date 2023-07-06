@@ -1,6 +1,6 @@
 global:
   resolve_timeout: 5m
-  slack_api_url: 'https://hooks.slack.com/services/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'
+  slack_api_url: '<webkook>'
 route:
   group_by: ['alertname']
   group_wait: 30s
@@ -8,10 +8,10 @@ route:
   repeat_interval: 1h
   receiver: 'slack'
 receivers:
-  - name: 'slack'
-    slack_configs:
+- name: 'slack'
+  slack_configs:
     - channel: '#alerts'
-      send_resolved: true
+    
       
 inhibit_rules:
   - source_match:
