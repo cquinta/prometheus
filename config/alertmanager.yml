@@ -8,9 +8,16 @@ route:
   repeat_interval: 1h
   receiver: 'slack'
 receivers:
-- name: 'slack'
-  slack_configs:
+  - name: 'slack'
+    slack_configs:
     - channel: '#alerts'
+    send_resolved: true
+    title: |-
+      [{{ .Status | to Upper }}{{ if eq .Status "firint" }}:{{ .Alerts.Firing | len }} {{ end }}] {{ .CommonLabels.alertname }} na instancia {{ .CommonLabels.instance }}
+    text: >-
+      {{ range .Alerts -}}
+      *Alerta: * {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .labels.severity }}`{{ end }}
+       
     
       
 inhibit_rules:
