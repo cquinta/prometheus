@@ -24,3 +24,4 @@ git clone https://github.com/prometheus-operator/kube-prometheus
 kubectl create -f ./kube-prometheus/manifests/setup
 kubectl apply -f ./kube-prometheus/manifests
 
+
