@@ -20,4 +20,12 @@ spec:
       annotations:
         summary: "Nginx está fora"
         description: "faça alguma coisa mutly"
+    - alert: NginxHighRequestRate
+        expr: rate(nginx_http_request_total) > 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Nginx está com muita requisição"
+          description: "faça alguma coisa mutly"
         
