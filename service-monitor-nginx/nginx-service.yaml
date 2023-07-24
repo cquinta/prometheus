@@ -4,6 +4,7 @@ metadata:
   name: nginx-svc
   labels:
     app: nginx
+    team: platform-engineering
 spec:
   ports:
   - port: 9113
