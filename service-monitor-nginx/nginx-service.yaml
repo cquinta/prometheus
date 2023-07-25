@@ -5,6 +5,9 @@ metadata:
   labels:
     app: nginx
     team: platform-engineering
+    env: production
+    severity: critical
+    giropops: strigus
 spec:
   ports:
   - port: 9113

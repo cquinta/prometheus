@@ -17,4 +17,21 @@ spec:
           regex: '(.*)'
           targetLabel: team
           replacement: '${1}'
+        - sourceLabels: [__meta_kubernetes_service_label_app]
+          regex: '(.*)'
+          targetLabel: app
+          replacement: '${1}'
+        - sourceLabels: [app, team]
+          targetLabel: app_team
+          regex: (.*);(.*)
+          replacement: ${1}_${2}
+        - sourceLabels: []
+          targetLabel: region
+          replacement: us-east-1
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+
+
+
+
 
