@@ -29,11 +29,16 @@ adduser --shell /sbin/nologin --system --ingroup alertmanager alertmanager
 
 # Ajustando o group e user owner para os diretórios criados. 
 
+# Prometheus
 chown -R prometheus:prometheus /etc/prometheus
 chown -R prometheus:prometheus /var/lib/prometheus
 chown -R prometheus:prometheus /usr/local/bin/prometheus
 chown -R prometheus:prometheus /usr/local/bin/promtool
+
+# Node Exporter
 chown -R node_exporter:node_exporter /etc/node_exporter
+
+# AlertManager
 chown -R alertmanager:alertmanager /etc/alertmanager
 chown -R alertmanager:alertmanager /var/lib/alertmanager
 
